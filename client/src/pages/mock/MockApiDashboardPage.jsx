@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export default function NewDashboard() {
+export default function MockApiDashboardPage() {
   const navigate = useNavigate();
   return (
     <main className="w-full min-h-screen p-9">

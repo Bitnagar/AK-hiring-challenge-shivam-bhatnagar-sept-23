@@ -7,7 +7,7 @@ import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 
-export default function NewHome() {
+export default function MockApiHomePage() {
   const ref = useRef(null);
   const navigate = useNavigate();
   const [otp, setOtp] = useState(null);
@@ -17,7 +17,7 @@ export default function NewHome() {
   function requestOtp(e) {
     e.preventDefault();
     if (phoneNum.length >= 10 && phoneNum.length <= 13) {
-      const payload = JSON.stringify({ "message": phoneNum });
+      const payload = JSON.stringify({ phoneNum: phoneNum });
       fetch("/api/get-otp", {
         method: "POST",
         headers: {
@@ -43,7 +43,7 @@ export default function NewHome() {
     e.preventDefault();
     const payload = JSON.stringify({ otp: otp, phoneNum: phoneNum });
     fetch("/api/verify-otp", {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
@@ -52,7 +52,7 @@ export default function NewHome() {
       .then((response) => response.json())
       .then((json) => {
         if (json.message !== undefined) {
-          navigate("/newdashboard");
+          navigate("/dashboard");
           toast.success(json.message);
         } else {
           toast.error(json.error);
@@ -67,7 +67,7 @@ export default function NewHome() {
     e.preventDefault();
     const payload = JSON.stringify({ phoneNum: phoneNum });
     fetch("/api/resend-otp", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -95,7 +95,7 @@ export default function NewHome() {
            text-xl"
           >
             With <span className="text-blue-400">AdmitKard</span>, students be
-            whatever they want to be. Where ever they want to be!
+            whatever they want to be. Wherever they want to be!
           </p>
         </div>
       </section>

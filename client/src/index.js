@@ -1,41 +1,41 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
+import FirebaseHomePage from "./pages/firebase/FirebaseHomePage";
+import MockApiHomePage from "./pages/mock/MockApiHomePage";
 import RootLayout from "./pages/RootLayout";
-import Dashboard from "./pages/Dashboard";
-import NewHome from "./pages/new/NewHome";
-import NewDashboard from "./pages/new/NewDashboard";
+import FirebaseDashboardPage from "./pages/firebase/FirebaseDashboardPage";
+import MockApiDashboardPage from "./pages/mock/MockApiDashboardPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const router = createBrowserRouter([
-  {
-    path: "/firebase",
-    element: <RootLayout />,
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-    ],
-  },
   {
     path: "/",
     element: <RootLayout />,
     children: [
       {
         path: "",
-        element: <NewHome />,
+        element: <MockApiHomePage />,
       },
       {
-        path: "/newDashboard",
-        element: <NewDashboard />,
+        path: "/dashboard",
+        element: <MockApiDashboardPage />,
+      },
+    ],
+  },
+  {
+    path: "/firebase",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "",
+        element: <FirebaseHomePage />,
+      },
+      {
+        path: "dashboard",
+        element: <FirebaseDashboardPage />,
       },
     ],
   },

@@ -1,14 +1,14 @@
 import toast from "react-hot-toast";
 import OtpInput from "react-otp-input";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import { auth } from "../config/firebase";
 import "react-phone-number-input/style.css";
+import { auth } from "../../config/firebase";
+import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
-export default function Home() {
+export default function FirebaseHomePage() {
   const ref = useRef(null);
   const navigate = useNavigate();
   const [otp, setOtp] = useState(null);
@@ -21,7 +21,9 @@ export default function Home() {
         "size": "invisible",
         "callback": (response) => {
           console.log(response);
-          onSignInSubmit();
+        },
+        "expired-callback": () => {
+          toast.error("Verification timed out! Refresh and retry!");
         },
       });
     }
@@ -52,6 +54,7 @@ export default function Home() {
       .then(async (res) => {
         console.log(res);
         navigate("/firebase/dashboard");
+        toast.success("Success. OTP verified! Welcome to AdmitKard!");
       })
       .catch((error) => {
         console.log(error);
@@ -71,7 +74,7 @@ export default function Home() {
            text-xl"
           >
             With <span className="text-blue-400">AdmitKard</span>, students be
-            whatever they want to be. Where ever they want to be!
+            whatever they want to be. Wherever they want to be!
           </p>
         </div>
       </section>

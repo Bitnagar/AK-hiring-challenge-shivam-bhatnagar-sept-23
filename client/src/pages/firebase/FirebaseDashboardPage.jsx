@@ -1,9 +1,9 @@
 import toast from "react-hot-toast";
-import { auth } from "../config/firebase";
+import { auth } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
-export default function Dashboard() {
+export default function FirebaseDashboardPage() {
   const navigate = useNavigate();
   return (
     <main className="w-full min-h-screen p-9">
