@@ -136,7 +136,7 @@ export default function FirebaseHomePage() {
                 <span className="text-ak-black-primary">{phoneNumber}</span>
               </h4>
               <Link
-                to={"/"}
+                to={"/firebase"}
                 onClick={() => {
                   setSignInSubmit(false);
                   setPhoneNumber("");
