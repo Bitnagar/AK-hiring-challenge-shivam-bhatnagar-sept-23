@@ -17,7 +17,12 @@ export default function MockApiDashboardPage() {
             </button>
           </div>
           <div className="mb-10">
-            <img src="/images/hero.png" alt="hero banner" width={305} />
+            <img
+              src="/images/hero.png"
+              alt="hero banner"
+              width={305}
+              height={305}
+            />
           </div>
           <div className="text-center mb-24">
             <h1 className="font-semibold text-xl text-black mb-2">

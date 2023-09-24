@@ -35,7 +35,7 @@ export default function MockApiHomePage() {
         });
     } else {
       document.getElementById("error-phone").innerText =
-        "Api supports only 10 digits, excluding country code. Try 2 digit country code.";
+        "Api supports only a 10 digit number with 2 digit country code.";
     }
   }
 
@@ -117,10 +117,10 @@ export default function MockApiHomePage() {
                 Please sign in into your account
               </h4>
             </div>
-            <div className="mb-8 relative w-fit">
+            <div className="mb-8 relative w-fit flex justify-center flex-col items-center">
               <div
                 ref={ref}
-                className=" relative phone-input border border-ak-yellow-dark p-2 rounded"
+                className=" relative phone-input border base:w-80 border-ak-yellow-dark p-2 rounded"
               >
                 <PhoneInput
                   countryCallingCodeEditable={false}
@@ -129,7 +129,10 @@ export default function MockApiHomePage() {
                   placeholder={"+91 99988-87777"}
                 />
               </div>
-              <p id="error-phone" className=" text-xs text-red-500"></p>
+              <p
+                id="error-phone"
+                className=" text-xs text-red-500 w-4/5 text-center mt-1"
+              ></p>
             </div>
             <p className="text-[12px] text-ak-gray-light text-center mb-[100px]">
               We will send you one time SMS message. <br></br>Charges may apply
