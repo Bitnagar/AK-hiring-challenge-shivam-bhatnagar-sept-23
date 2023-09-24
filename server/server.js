@@ -41,7 +41,7 @@ function generateOtp() {
 app.post("/api/get-otp", (req, res) => {
   const phoneNum = req.body.phoneNum;
   if (phoneNum.length >= 10) {
-    let otp = generateOtp();
+    const otp = generateOtp();
     otpMap.set(phoneNum, otp);
     res.json({ otp: otp });
   } else {
@@ -113,14 +113,7 @@ app.delete("/api/verify-otp", (req, res) => {
  */
 app.put("/api/resend-otp", (req, res) => {
   const phoneNum = req.body.phoneNum;
-
-  let otp = generateOtp();
-
-  if (otpMap.get(phoneNum) !== undefined) {
-    otpMap.set(phoneNum, otp);
-    res.json({ otp: otp });
-  } else {
-    otpMap.set(phoneNum, otp);
-    res.json({ otp: otp });
-  }
+  const otp = generateOtp();
+  otpMap.set(phoneNum, otp);
+  res.json({ otp: otp });
 });

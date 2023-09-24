@@ -61,6 +61,19 @@ input:focus {
   outline-width: 0;
 }
 
+.stagger {
+  transform: translateY(20px);
+  opacity: 0;
+  animation: stagger 0.3s ease-in forwards;
+}
+
+@keyframes stagger {
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 760px) {
   .PhoneInputInput {
     width: 100%;

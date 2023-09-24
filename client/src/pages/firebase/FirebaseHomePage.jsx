@@ -37,11 +37,36 @@ export default function FirebaseHomePage() {
         console.log(confirmationResult);
         window.confirmationResult = confirmationResult;
         setSignInSubmit(true);
-        toast.success("OTP sent successfully!");
+        toast.success((t) => (
+          <span>
+            OTP sent successfully!
+            <button
+              className="bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+              onClick={() => {
+                toast.dismiss(t.id);
+              }}
+            >
+              X
+            </button>
+          </span>
+        ));
       })
       .catch((error) => {
         console.log(error);
         toast.error("Error. OTP not sent. Try again.");
+        toast.error((t) => (
+          <span>
+            Error. OTP not sent. Try again.
+            <button
+              className="bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+              onClick={() => {
+                toast.dismiss(t.id);
+              }}
+            >
+              X
+            </button>
+          </span>
+        ));
         window.recaptchaVerifier.render().then(function (widgetId) {
           window.grecaptcha.reset(widgetId);
         });
@@ -52,12 +77,22 @@ export default function FirebaseHomePage() {
     window.confirmationResult
       .confirm(otp)
       .then(async (res) => {
-        console.log(res);
         navigate("/firebase/dashboard");
-        toast.success("Success. OTP verified! Welcome to AdmitKard!");
+        toast.success((t) => (
+          <span className="flex items-center justify-center gap-2 text-center">
+            <span>Success. OTP verified! Welcome to AdmitKard!</span>
+            <button
+              className=" bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+              onClick={() => {
+                toast.dismiss(t.id);
+              }}
+            >
+              X
+            </button>
+          </span>
+        ));
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.message + " . Please try again.");
       });
   }
@@ -65,7 +100,7 @@ export default function FirebaseHomePage() {
   return (
     <main className="w-full min-h-screen p-[16px] flex items-center justify-center">
       <section className=" w-1/2 h-full hidden base:flex relative items-center justify-center flex-col ">
-        <div className="base:text-center xl:text-left w-3/4">
+        <div className="stagger base:text-center xl:text-left w-3/4">
           <h1 className="font-bold text-4xl mb-3">
             Be the one you want to be.
           </h1>

@@ -1,4 +1,3 @@
-// import toast from "react-hot-toast";
 import toast from "react-hot-toast";
 import OtpInput from "react-otp-input";
 import { Link } from "react-router-dom";
@@ -9,11 +8,13 @@ import PhoneInput from "react-phone-number-input";
 
 export default function MockApiHomePage() {
   const ref = useRef(null);
+
   const navigate = useNavigate();
   const [otp, setOtp] = useState(null);
   const [phoneNum, setPhoneNum] = useState("");
   const [signInSubmit, setSignInSubmit] = useState(false);
 
+  //request an otp from the server
   function requestOtp(e) {
     e.preventDefault();
     if (phoneNum.length >= 10 && phoneNum.length <= 13) {
@@ -28,10 +29,49 @@ export default function MockApiHomePage() {
         .then((response) => response.json())
         .then((json) => {
           setSignInSubmit(true);
-          toast.success(`Your OTP is: ${json.otp}`);
+          toast.success((t) => (
+            <span>
+              Your otp is: {json.otp}{" "}
+              <button
+                className="bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                onClick={() => {
+                  navigator.clipboard.writeText(json.otp);
+                  setOtp(json.otp);
+                  toast((t) => (
+                    <span>
+                      Copied!
+                      <button
+                        className="bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                        onClick={() => {
+                          toast.dismiss(t.id);
+                        }}
+                      >
+                        X
+                      </button>
+                    </span>
+                  ));
+                  toast.dismiss(t.id);
+                }}
+              >
+                copy
+              </button>
+            </span>
+          ));
         })
-        .catch((error) => {
-          toast.error(error.message);
+        .catch(() => {
+          toast.error((t) => (
+            <span className="flex items-center justify-center gap-2 text-center">
+              Oh shoot! Some error occured in api.
+              <button
+                className=" bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                onClick={() => {
+                  toast.dismiss(t.id);
+                }}
+              >
+                X
+              </button>
+            </span>
+          ));
         });
     } else {
       document.getElementById("error-phone").innerText =
@@ -39,54 +79,101 @@ export default function MockApiHomePage() {
     }
   }
 
-  function VerifyOtp(e) {
+  //verify otp
+  function verifyOtp(e) {
     e.preventDefault();
     const payload = JSON.stringify({ otp: otp, phoneNum: phoneNum });
-    fetch("/api/verify-otp", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: payload,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.message !== undefined) {
-          navigate("/dashboard");
-          toast.success(json.message);
-        } else {
-          toast.error(json.error);
-        }
+    if (otp > 999 && otp < 10000) {
+      fetch("/api/verify-otp", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: payload,
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.message !== undefined) {
+            navigate("/dashboard");
+            toast.success((t) => (
+              <span className="flex items-center justify-center gap-2 text-center">
+                <span> {json.message}</span>
+                <button
+                  className=" bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                  }}
+                >
+                  X
+                </button>
+              </span>
+            ));
+          } else {
+            toast.error(json.error);
+          }
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    } else {
+      toast.error("Please type a valid otp.");
+    }
   }
 
-  function ResendOtp(e) {
+  //resend otp
+  function resendOtp(e) {
     e.preventDefault();
     const payload = JSON.stringify({ phoneNum: phoneNum });
-    fetch("/api/resend-otp", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: payload,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setOtp(null);
-        toast.success(`Your new OTP is: ${json.otp}`);
+    if (phoneNum.length >= 10) {
+      fetch("/api/resend-otp", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: payload,
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          setOtp(null);
+          toast.success((t) => (
+            <span>
+              Your new otp is: {json.otp}{" "}
+              <button
+                className=" bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                onClick={() => {
+                  navigator.clipboard.writeText(json.otp);
+                  setOtp(json.otp);
+                  toast((t) => (
+                    <span>
+                      Copied!
+                      <button
+                        className="bg-zinc-600 font-medium px-2 py-1 rounded ml-2"
+                        onClick={() => {
+                          toast.dismiss(t.id);
+                        }}
+                      >
+                        X
+                      </button>
+                    </span>
+                  ));
+                  toast.dismiss(t.id);
+                }}
+              >
+                Copy
+              </button>
+            </span>
+          ));
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
   }
 
   return (
     <main className="w-full min-h-screen p-[16px] flex items-center justify-center">
       <section className="w-1/2 h-full hidden base:flex relative items-center justify-center flex-col ">
-        <div className="base:text-center xl:text-left w-3/4">
+        <div className="stagger base:text-center xl:text-left w-3/4">
           <h1 className="font-bold text-4xl mb-3">
             Be the one you want to be.
           </h1>
@@ -191,12 +278,12 @@ export default function MockApiHomePage() {
             </div>
             <p className="text-[12px] text-ak-gray-light text-center mb-7">
               Didn’t receive the code?{" "}
-              <button onClick={ResendOtp} className=" text-ak-yellow-dark">
+              <button onClick={resendOtp} className=" text-ak-yellow-dark">
                 Resend
               </button>
             </p>
             <button
-              onClick={VerifyOtp}
+              onClick={verifyOtp}
               className=" bg-ak-yellow-dark p-1 text-white rounded-full w-[224px] h-[36px]"
             >
               Verify
