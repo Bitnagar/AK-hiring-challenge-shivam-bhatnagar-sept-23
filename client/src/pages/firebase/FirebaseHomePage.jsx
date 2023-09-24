@@ -58,7 +58,7 @@ export default function FirebaseHomePage() {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Some error occured. Try again.");
+        toast.error(error.message + " . Please try again.");
       });
   }
 
