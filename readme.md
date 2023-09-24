@@ -96,6 +96,25 @@ npm run start
 npm run dev
 ```
 
+### Firebase SMS OTP
+
+You can access Real SMS based OTP auth using firebase in the following routes.
+
+```bash
+localhost:3000/firebase -> home page
+localhost:3000/firebase/dashboard -> final screen.
+```
+
+### Mock/Fake OTP API verification can be accessed following routes:
+
+```bash
+localhost:3000/ -> home page
+localhost:3000/dashboard -> final screen.
+```
+Client app would be started at the Mock api route by default.
+
+**No routes are protected.**
+
 
 ## Screenshots
 Check [screenshots](https://github.com/Bitnagar/AK-hiring-challenge-shivam-bhatnagar-sept-23/tree/master/screenshots) folder.
