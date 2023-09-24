@@ -98,8 +98,7 @@ npm run dev
 
 
 ## Screenshots
-pending
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+Check [screenshots](https://github.com/Bitnagar/AK-hiring-challenge-shivam-bhatnagar-sept-23/tree/master/screenshots) folder.
 
 
 ## Tech Stack
