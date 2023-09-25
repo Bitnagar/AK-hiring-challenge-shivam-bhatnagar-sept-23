@@ -98,6 +98,12 @@ npm run dev
 
 ### Firebase SMS OTP
 
+To access Firebase OTP auth, you will have to follow these steps:
+- Create a new firebase project.
+- Initialize a new firebase app.
+- Turn on Phone authentication for the app.
+- Get the firebase configurations (i.e. Api keys, app id etc.) and paste them inside `.env` file.
+
 You can access Real SMS based OTP auth using firebase in the following routes.
 
 ```bash
