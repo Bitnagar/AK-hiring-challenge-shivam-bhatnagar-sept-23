@@ -84,7 +84,6 @@ app.delete("/api/verify-otp", (req, res) => {
     otpMap.delete(phoneNum);
     res.json({ message: "Success. OTP verified! Welcome to AdmitKard!" });
   } else {
-    otpMap.delete(phoneNum);
     res.json({ error: "Incorrect OTP. Verification Failed. Try again." });
   }
 });
